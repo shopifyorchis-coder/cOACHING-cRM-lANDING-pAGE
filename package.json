@@ -2,10 +2,15 @@
   "name": "eduop-crm-landing-page",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "start": "serve -s . -l tcp://0.0.0.0:8080"
+    "start": "node --env-file-if-exists=.env server.js",
+    "test": "node --test"
   },
   "dependencies": {
-    "serve": "^14.2.4"
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.0.0"
   }
 }

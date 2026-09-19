@@ -1,8 +1,15 @@
-FROM nginx:alpine
+FROM node:22-alpine
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY . /usr/share/nginx/html
+WORKDIR /app
+ENV NODE_ENV=production
+
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
+COPY server.js index.html styles.css script.js ./
+COPY assets ./assets
 
 EXPOSE 8080
+USER node
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "server.js"]
